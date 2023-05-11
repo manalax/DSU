@@ -19,6 +19,7 @@ namespace DSU
 
         public bool b_Input;
         public bool rollFlag;
+        public bool isInteracting;
 
         private void Awake() {
             cameraHandler = CameraHandler.singleton;
@@ -67,7 +68,7 @@ namespace DSU
         
         private void HandleRollInput(float delta)
         {
-            b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
+            b_Input = inputActions.PlayerActions.Roll.triggered;
 
             if (b_Input)
             {
