@@ -13,26 +13,27 @@ namespace DSU
         public float mouseY;
 
         PlayerControls inputActions;
-        CameraHandler cameraHandler;
+        PlayerAttacker playerAttacker;
+        PlayerInventory playerInventory;
+        PlayerManager playerManager;
         Vector2 movementInput;
         Vector2 cameraInput;
 
         public bool b_Input;
+        public bool rb_Input;
+        public bool rt_Input;
+
         public bool rollFlag;
-        public bool isInteracting;
+        public bool sprintFlag;
+        public bool comboFlag;
+        public float rollInputTimer;
+
+        public static float rollInputTimerMax = 0.5f;
 
         private void Awake() {
-            cameraHandler = CameraHandler.singleton;
-        }
-
-        private void FixedUpdate() {
-            float delta = Time.deltaTime;
-
-            if (cameraHandler != null)
-            {
-                cameraHandler.FollowTarget(delta);
-                cameraHandler.HandleCameraRotation(delta, mouseX, mouseY);
-            }
+            playerAttacker = GetComponent<PlayerAttacker>();
+            playerInventory = GetComponent<PlayerInventory>();
+            playerManager = GetComponent<PlayerManager>();
         }
 
         public void OnEnable() {
@@ -55,6 +56,7 @@ namespace DSU
         {
             MoveInput(delta);
             HandleRollInput(delta);
+            HandleAttackInput(delta);
         }
 
         private void MoveInput(float delta)
@@ -68,11 +70,55 @@ namespace DSU
         
         private void HandleRollInput(float delta)
         {
-            b_Input = inputActions.PlayerActions.Roll.triggered;
+            b_Input = inputActions.PlayerActions.Roll.IsPressed();
 
             if (b_Input)
             {
-                rollFlag = true;
+                rollInputTimer += delta;
+                sprintFlag = true;
+            }
+            else
+            {
+                if (rollInputTimer > 0 && rollInputTimer < rollInputTimerMax)
+                {
+                    sprintFlag = false;
+                    rollFlag = true;
+                }
+                
+                rollInputTimer = 0;
+            }
+        }
+
+        private void HandleAttackInput(float delta)
+        {
+            inputActions.PlayerActions.RB.performed += i => rb_Input = true;
+            inputActions.PlayerActions.RT.performed += i => rt_Input = true;
+
+            if (rb_Input)
+            {
+                if (playerManager.canDoCombo)
+                {
+                    comboFlag = true;
+                    playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
+                    comboFlag = false;
+                }
+                else
+                {
+                    if(playerManager.isInteracting)
+                    {
+                        return;
+                    }
+                    if(playerManager.canDoCombo)
+                    {
+                        return;
+                    }
+                    playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+                }
+            }
+
+            if (rt_Input)
+            {
+                playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);   
             }
         }
     }

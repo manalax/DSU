@@ -6,9 +6,10 @@ namespace DSU
 {
     public class AnimatorHandler : MonoBehaviour
     {
+        PlayerManager playerManager;
         public Animator anim;
-        public InputHandler inputHandler;
-        public PlayerLocomotion playerLocomotion;
+        InputHandler inputHandler;
+        PlayerLocomotion playerLocomotion;
         int vertical;
         int horizontal;
         
@@ -16,6 +17,7 @@ namespace DSU
         
         public void Initialize()
         {
+            playerManager = GetComponentInParent<PlayerManager>();
             anim = GetComponent<Animator>();
             inputHandler = GetComponentInParent<InputHandler>();
             playerLocomotion = GetComponentInParent<PlayerLocomotion>();
@@ -23,7 +25,7 @@ namespace DSU
             horizontal = Animator.StringToHash("Horizontal");
         }
 
-        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement)
+        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting)
         {
             #region Vertical
             float v = 0;
@@ -76,6 +78,12 @@ namespace DSU
 
             #endregion
 
+            if (isSprinting)
+            {
+                v = 2;
+                h = horizontalMovement;
+            }
+
             anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
         }
@@ -97,10 +105,22 @@ namespace DSU
             canRotate = false;
         }
 
+        public void EnableCombo()
+        {
+            Debug.Log("enabling combo");
+            anim.SetBool("canDoCombo", true);
+        }
+
+        public void DisableCombo()
+        {
+            Debug.Log("disabling combo");
+            anim.SetBool("canDoCombo", false);
+        }
+
         private void OnAnimatorMove() {
-            if (inputHandler.isInteracting == true)
+            if (playerManager.isInteracting == true)
             {
-                if (inputHandler.isInteracting == false)
+                if (playerManager.isInteracting == false)
                 {
                     return;
                 }
