@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace DSU
 {
+    // TODO: Generalise into Bar Superclass
     public class HealthBar : MonoBehaviour
     {
         public Slider slider;

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65d35d639c2a42a99df670e6c4457a1, type: 3}
+  m_Name: Crystal_Axe
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 21300000, guid: 08df0575617f244f8995074ce72a1304, type: 3}
+  itemName: Crystal Axe
+  modelPrefab: {fileID: 287289429703935770, guid: dcf23ac54439e4b288fe09fc6f5f9312, type: 3}
+  isUnarmed: 0
+  Right_Arm_Idle_01: Right_Arm_Idle_01
+  Left_Arm_Idle_01: Left_Arm_Idle_01
+  OH_Light_Attack_1: OH_Light_Attack_1
+  OH_Light_Attack_2: OH_Light_Attack_2
+  OH_Heavy_Attack_1: OH_Heavy_Attack_1
+  baseStamina: 30
+  lightAttackMultiplier: 1
+  heavyAttackMultiplier: 2

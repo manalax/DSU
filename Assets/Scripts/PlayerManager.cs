@@ -39,6 +39,7 @@ namespace DSU
             playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleRollingAndSprinting(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
+            CheckForInteractableObject();
         }
 
         private void FixedUpdate() {
@@ -56,10 +57,41 @@ namespace DSU
             inputHandler.sprintFlag = false;
             inputHandler.rb_Input = false;
             inputHandler.rt_Input = false;
+            inputHandler.d_Pad_Down = false;
+            inputHandler.d_Pad_Left = false;
+            inputHandler.d_Pad_Right = false;
+            inputHandler.d_Pad_Up = false;
+            inputHandler.a_Input = false;
 
             if (isInAir)
             {
                 playerLocomotion.inAirTimer += Time.deltaTime;
+            }
+        }
+
+        public void CheckForInteractableObject()
+        {
+            RaycastHit hit;
+
+            // 0.3f is the pickup radius
+            if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
+            {
+                if (hit.collider.tag == "Interactable")
+                {
+                    Interactable interactablObject = hit.collider.GetComponent<Interactable>();
+
+                    if (interactablObject != null)
+                    {
+                        string interactableText = interactablObject.interactableText;
+                        //Set UI tet to interactable object's text
+                        //enable ui text pop up
+
+                        if(inputHandler.a_Input)
+                        {
+                            hit.collider.GetComponent<Interactable>().Interact(this);
+                        }
+                    }
+                }
             }
         }
 

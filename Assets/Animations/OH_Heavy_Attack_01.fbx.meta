@@ -56,7 +56,28 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.16292134
+        functionName: OpenRightHandDamageCollider
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 16b09f9202a3b488692b10ba93d1eadd, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4775281
+        functionName: CloseRightHandDamageCollider
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 16b09f9202a3b488692b10ba93d1eadd, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.11797752
+        functionName: DrainStaminaHeavyAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 16b09f9202a3b488692b10ba93d1eadd, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

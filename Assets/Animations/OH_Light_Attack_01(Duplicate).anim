@@ -71763,6 +71763,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.43333334
+    functionName: DrainStaminaLightAttack
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 16b09f9202a3b488692b10ba93d1eadd, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5587963
     functionName: OpenRightHandDamageCollider
     data: 
